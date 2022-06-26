@@ -1,16 +1,17 @@
 from tabulate import tabulate
-from utils import MeasureExecutionTime, RandomList
+from utils import TableHeader, Measure
 from sorting.insertionSort import InsertionSort
+from sorting.mergeSort import MergeSort
 
 def main():
-    NumberOfElements = 10000
+    benchmark = False
 
     print('Sorting Algorithm:')
-    head = ['Algorithm', 'Duration']
+    head = TableHeader(benchmark)
     data = []
 
-    duration = MeasureExecutionTime(InsertionSort, RandomList(NumberOfElements))
-    data.append(['Insertion-Sort', duration])
+    data.append(Measure(benchmark).Name('Insertion-Sort').MeasureExecutionTime(InsertionSort).Results())
+    data.append(Measure(benchmark).Name('Merge-Sort').MeasureExecutionTime(MergeSort).Results())
 
     print(tabulate(data, headers=head, tablefmt="grid"))
   
